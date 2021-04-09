@@ -1,0 +1,4 @@
+include ':every'
+include ':every'
+include ':app'
+rootProject.name = "every"

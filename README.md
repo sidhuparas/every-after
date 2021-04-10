@@ -15,6 +15,27 @@ every-after is an Android library to run a piece of code (optionally repetitivel
 | LifecycleOwner.everyMinute(action) | Executes `action` every minute |
 | LifecycleOwner.after(time, unit, action) | Executes `action` *once* after `time` in `unit` units |
 
+# Integration
+
+1. In the project-level `build.gradle`:
+
+```
+allprojects {
+   repositories {
+      ...
+      maven { url 'https://jitpack.io' }
+    }
+}
+```
+
+2. In app-level `build.gradle`: [![](https://jitpack.io/v/sidhuparas/every-after.svg)](https://jitpack.io/#sidhuparas/every-after)
+
+```
+dependencies {
+     implementation 'com.github.sidhuparas:every-after:<latest-version>'
+}
+```
+
 # FAQ
 
 1. **I can use `Handler` to replicate `after` function's functionality. Why should I need `after` function or this library?**

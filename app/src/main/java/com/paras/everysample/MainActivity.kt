@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.paras.every.every
+import com.paras.every.everySecond
+import kotlinx.coroutines.delay
 
 class MainActivity : AppCompatActivity() {
 
@@ -11,6 +13,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        every { time -> Log.d("paras", "onCreate: $time") }
+        everySecond { time ->
+            delay(100)
+            Log.d("paras", "onCreate: $time")
+        }
     }
 }

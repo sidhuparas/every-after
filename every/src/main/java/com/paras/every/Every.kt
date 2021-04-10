@@ -5,25 +5,30 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
 import kotlinx.coroutines.*
-import java.util.concurrent.TimeUnit
+import kotlin.system.measureTimeMillis
 
 class Every(
-    private val action: (Long) -> Unit,
-    lifecycleOwner: LifecycleOwner
+    lifecycleOwner: LifecycleOwner,
+    private val action: suspend (Long) -> Unit,
+    private val sleepTimeInMillis: Long
 ) : LifecycleObserver {
 
     private var job: Job? = null
-    private var time: Long = 0
+    private var elapsedTime: Long = 0
 
     init {
         lifecycleOwner.lifecycle.addObserver(this)
         job = CoroutineScope(Dispatchers.Main).launch {
             while (isActive) {
-                action(time)
-                delay(1000)
-                time += 1000
+                val timeTaken = measureTimeMillis { action(elapsedTime) }
+                delay(sleepTimeInMillis)
+                elapsedTime += sleepTimeInMillis + timeTaken
             }
         }
+    }
+
+    fun cancel() {
+        onDestroy()
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)

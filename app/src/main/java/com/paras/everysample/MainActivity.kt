@@ -1,9 +1,8 @@
 package com.paras.everysample
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.paras.every.every
+import androidx.appcompat.app.AppCompatActivity
 import com.paras.every.everySecond
 import kotlinx.coroutines.delay
 

@@ -7,11 +7,11 @@ import androidx.lifecycle.OnLifecycleEvent
 import kotlinx.coroutines.*
 import kotlin.system.measureTimeMillis
 
-class Every(
+internal class Every(
     lifecycleOwner: LifecycleOwner,
     private val action: suspend (Long) -> Unit,
     private val sleepTimeInMillis: Long
-) : LifecycleObserver {
+) : LifecycleObserver, Cancellable {
 
     private var job: Job? = null
     private var elapsedTime: Long = 0
@@ -27,7 +27,7 @@ class Every(
         }
     }
 
-    fun cancel() {
+    override fun cancel() {
         onDestroy()
     }
 

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">every</string>
+    <string name="main_text">This is a sample app. Actual sauce is in the code, not UI :)</string>
 </resources>

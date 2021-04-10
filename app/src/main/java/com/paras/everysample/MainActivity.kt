@@ -3,8 +3,11 @@ package com.paras.everysample
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.paras.every.after.after
+import com.paras.every.every
+import com.paras.every.everyMinute
 import com.paras.every.everySecond
-import kotlinx.coroutines.delay
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
 
@@ -12,9 +15,25 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        everySecond { time ->
-            delay(100)
-            Log.d("paras", "onCreate: $time")
+        val sec = everySecond { time ->
+            log("1. $time")
         }
+
+        everyMinute { time ->
+            log("2. $time")
+        }
+
+        after(1, TimeUnit.MINUTES) {
+            sec.cancel()
+            log("3. Done")
+        }
+
+        every(1, TimeUnit.MINUTES) { time ->
+            log("4. $time")
+        }
+    }
+
+    private fun log(message: Any?) {
+        Log.d("Every-After", message.toString())
     }
 }

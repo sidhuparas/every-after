@@ -19,6 +19,10 @@ internal class Every(
     init {
         lifecycleOwner.lifecycle.addObserver(this)
         job = CoroutineScope(Dispatchers.Main).launch {
+            if (sleepTimeInMillis <= 0) {
+                return@launch
+            }
+
             while (isActive) {
                 val timeTaken = measureTimeMillis { action(elapsedTime) }
                 delay(sleepTimeInMillis)

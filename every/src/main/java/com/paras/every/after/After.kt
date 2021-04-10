@@ -18,6 +18,10 @@ internal class After(
     init {
         lifecycleOwner.lifecycle.addObserver(this)
         job = CoroutineScope(Dispatchers.Main).launch {
+            if (timeInMillis <= 0) {
+                return@launch
+            }
+
             delay(timeInMillis)
             ensureActive()
             action()

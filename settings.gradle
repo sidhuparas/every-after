@@ -1,4 +1,4 @@
-include ':every'
+include ':every-lib'
 include ':every'
 include ':app'
 rootProject.name = "every"
